@@ -2,7 +2,7 @@ import * as React from 'react'
 import {StyleSheet} from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const styles = StyleSheet.create({ 
+export const styles = StyleSheet.create({ 
 container: {
     flex: 1, 
     backgroundColor: "#6fc0b8" 
@@ -108,7 +108,22 @@ TextInput: {
 bookImage: { 
     width: "100%", 
     height: RFValue(220) 
-} 
+},
+keyBoardStyle : { 
+    flex:1, 
+    alignItems:'center', 
+    justifyContent:'center' 
+}, 
+formTextInput:{ 
+    width:"75%", 
+    height:35, 
+    alignSelf:'center', 
+    borderColor:'#ffab91', 
+    borderRadius:10, 
+    borderWidth:1, 
+    marginTop:20, 
+    padding:10, 
+}, 
 });
-export default styles
+
 

@@ -1,26 +1,22 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import WelcomeScreen from './screens/welcomeScreen.js'
-import Request from './screens/requestScreen.js'
-import Donate from './screens/donateScreen.js'
-import {createBottomTabNavigator} from 'react-navigation-tabs'
-import {createAppContainer} from 'react-navigation'
+import {createAppContainer, createSwitchNavigator} from 'react-navigation'
+import {TabNavigator} from './components/tabNavigator.js'
 
 export default class App extends React.Component{
   render(){
     return (
-      <View style={styles.container}>
-        <WelcomeScreen/>
-      </View>
+      <AppContainer/>
     );
   }
 }
 
-const TabNavigator = createBottomTabNavigator({
-  request : Request,
-  donate : Donate
+const SwitchNavigator = createSwitchNavigator({
+  welcome : WelcomeScreen,
+  tab : TabNavigator
 })
-const AppContainer = createAppContainer(TabNavigator)
+const AppContainer = createAppContainer(SwitchNavigator)
 
 const styles = StyleSheet.create({
   container: {

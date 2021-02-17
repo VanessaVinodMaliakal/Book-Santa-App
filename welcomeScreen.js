@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, Text,TextInput, View, TouchableOpacity, Image, Modal, ScrollView } from 'react-native';
+import { StyleSheet, Text,TextInput, View, TouchableOpacity, Image, Modal, ScrollView, Alert} from 'react-native';
 import {styles} from '../StyleSheet.js'
+import firebase from 'firebase'
+import db from '../Config.js'
 
 export default class WelcomeScreen extends React.Component {
   constructor(){
+    super()
     this.state={
       modalVisible : false,
       firstName : '',
@@ -14,7 +17,7 @@ export default class WelcomeScreen extends React.Component {
       password : ''
     }
   }
-  signUpModel=()=>{
+  signUpModal=()=>{
     return(
     <Modal 
     animationType='slide'
@@ -94,18 +97,33 @@ export default class WelcomeScreen extends React.Component {
     )
   }
   userSignUp=()=>{
-
+    firebase.auth().createUserWithEmailAndPassword(this.state.emailID,this.state.password).then((response)=>{
+      console.log(response)
+      this.setState({
+        modalVisible : false
+      })
+    })
+    .catch((error)=>{
+      console.log(error['message'])
+    })
   }
   userLogin=()=>{
-
+    firebase.auth().signInWithEmailAndPassword(this.state.emailID,this.state.password).then(()=>{
+      Alert.alert('logged in successfully')
+      this.props.navigation.navigate('tab')
+    })
+    .catch((error)=>{
+      console.log(error['message'])
+    })
   }
   render(){
     return (
-      <View style={styles.container}>
+      
+      <View style={styles.container, {marginTop : 200}}>
         {this.signUpModal()}
-        <View style={{flex : 0.25}}>
-          <View style={{flex : 0.45}}>
-          <View style={styles.textInput}>
+        <View>
+          <View>
+          <View>
           <TextInput 
           placeHolder = 'username'
           style={styles.TextInput}
@@ -124,7 +142,7 @@ export default class WelcomeScreen extends React.Component {
           }}></TextInput>
         </View>
         </View>
-        <View style={{flex : 0.5, alignItems : 'center'}}>
+        <View>
         <TouchableOpacity 
         style={styles.button}
         onPress={()=>{
@@ -140,6 +158,7 @@ export default class WelcomeScreen extends React.Component {
         </View>
         </View>
       </View>
+   
     );
   }
 }
