@@ -124,6 +124,57 @@ formTextInput:{
     marginTop:20, 
     padding:10, 
 }, 
+drawerItemsContainer:{
+     flex:0.8 
+}, 
+logOutContainer : { 
+    flex:0.2, 
+    justifyContent:'flex-end', 
+    paddingBottom:30 
+}, 
+logOutButton : { 
+    height:30, 
+    width:'100%', 
+    justifyContent:'center', 
+    padding:10 
+}, 
+logOutText:{ 
+    fontSize: 30, 
+    fontWeight:'bold' 
+},
+KeyboardAvoidingView:{ 
+    flex:1, 
+    justifyContent:'center', 
+    alignItems:'center' 
+}, 
+modalTitle :{ 
+    justifyContent:'center', 
+    alignSelf:'center', 
+    fontSize:30, 
+    color:'#ff5722', 
+    margin:50 
+}, 
+modalContainer:{ 
+    flex:1, 
+    borderRadius:20, 
+    justifyContent:'center', 
+    alignItems:'center', 
+    backgroundColor:"#ffff", 
+    marginRight:30, 
+    marginLeft : 30, 
+    marginTop:80, 
+    marginBottom:80, 
+}, 
+formTextInput:{ 
+    width:"75%", 
+    height:35, 
+    alignSelf:'center', 
+    borderColor:'#ffab91', 
+    borderRadius:10, 
+    borderWidth:1, 
+    marginTop:20, 
+    padding:10 
+},
 });
 
 

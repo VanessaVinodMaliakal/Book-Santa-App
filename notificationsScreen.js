@@ -1,25 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import AppHeader from '../components/header.js'
 import {styles} from '../StyleSheet.js'
-import db from '../Config.js'
 
-export default class Donate extends React.Component{
+export default class Notifications extends React.Component{
     constructor(){
         super()
         this.state={
-            requestData: ''
+            notificationData: '',
+            emailID: firebase.auth().currentUser.email,
         }
     }
-    getRequest=()=>{
-        db.collection('request').onSnapshot((docList)=>{
+    getNOtifications=()=>{
+        db.collection('notifications').where('targetedUserID','==',this.state.emailID).onSnapshot((docList)=>{
             if(docList.docs.length !== 0){
                 docList.docs.map((doc)=>{
                     var docData = doc.data()
                     this.setState({
-                        requestData: docData
+                        notificationData: docData
                     })
-                    console.log(this.state.requestData,'Vanessa')
+                    console.log(this.state.notificationData,'12345')
                })
             }
         })
@@ -30,17 +30,20 @@ export default class Donate extends React.Component{
     render(){
         return (
             <View style={styles.container}>
-                <AppHeader title = 'Donate books'/>
+                <AppHeader title = 'Notifications'/>
                 <View style={{flex: 1}}>
                 <FlatList 
-                    data ={this.state.requestData}
+                    data ={this.state.notificationData}
                     renderItem={({item})=>{
                     return(
                         <View style={{borderBottomWidth : 2}}>
                         <Text>{item['bookName']}</Text>
-                        <Text>{item['reason']}</Text>
+                        <Text>{item['date']}</Text>
+                        <Text>{item['donorID']}</Text>
+                        <Text>{item['message']}</Text>
+                        <Text>{item['notificationStatus']}</Text>
                         <Text>{item['requestID']}</Text>
-                        <Text>{item['userID']}</Text>
+                        <Text>{item['targetedUserID']}</Text>
                         </View>
                     )
                     }}
@@ -50,4 +53,3 @@ export default class Donate extends React.Component{
         );
     }
 }
-

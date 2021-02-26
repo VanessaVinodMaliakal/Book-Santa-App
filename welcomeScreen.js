@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { StyleSheet, Text,TextInput, View, TouchableOpacity, Image, Modal, ScrollView, Alert} from 'react-native';
+import { StyleSheet, Text,TextInput, View, TouchableOpacity, Image, Modal, ScrollView, Alert, KeyboardAvoidingView} from 'react-native';
 import {styles} from '../StyleSheet.js'
 import firebase from 'firebase'
 import db from '../Config.js'
+import { KeyboardAvoidingViewComponent } from 'react-native';
 
 export default class WelcomeScreen extends React.Component {
   constructor(){
@@ -13,8 +14,8 @@ export default class WelcomeScreen extends React.Component {
       lastName : '',
       contactNo : '',
       address : '',
-      emailID : '',
-      password : ''
+      emailID : 'vinodthomas@gmail.com',
+      password : 'abcdefg'
     }
   }
   signUpModal=()=>{
@@ -22,58 +23,61 @@ export default class WelcomeScreen extends React.Component {
     <Modal 
     animationType='slide'
     transparent={true}
-    visible={this.state.modalVisible}><ScrollView>
-      <View style={styles.signupView}><Text style={styles.signupText}>Sign up</Text></View>
+    visible={this.state.modalVisible}>
+      <View style={styles.modalContainer}>
+    <ScrollView style={{width: '100%'}}>
+      <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
+      <Text style={styles.modalTitle}>Sign up</Text>
       <View style={{flex:0.95}}>
-        <Text style={styles.label}>First name</Text>
+        
         <TextInput 
-        style={styles.formInput} 
-        placeHolder='first Name'
+        style={styles.formTextInput} 
+        placeholder='first Name'
         onChangeText={(text)=>{
           this.setState({
             firstName : text
           })
         }}></TextInput>
-        <Text style={styles.label}>Last name</Text>
+       
         <TextInput 
-        style={styles.formInput} 
-        placeHolder='last Name'
+        style={styles.formTextInput} 
+        placeholder='last Name'
         onChangeText={(text)=>{
           this.setState({
             lastName : text
           })
         }}></TextInput>
-        <Text style={styles.label} >Contact Number</Text>
+        
         <TextInput 
-        placeHolder='contact Number'
-        style={styles.formInput}
+        placeholder='contact Number'
+        style={styles.formTextInput}
         onChangeText={(text)=>{
           this.setState({
             contactNo : text
           })
         }}></TextInput>
-        <Text style={styles.label} >Address</Text>
+        
         <TextInput 
-        placeHolder='address'
-        style={styles.formInput}
+        placeholder='address'
+        style={styles.formTextInput}
         onChangeText={(text)=>{
           this.setState({
             address : text
           })
         }}></TextInput>
-        <Text style={styles.label} >Email ID</Text>
+        
         <TextInput 
-        placeHolder='emailID'
-        style={styles.FormInput}
+        placeholder='emailID'
+        style={styles.formTextInput}
         onChangeText={(text)=>[
           this.setState({
             emailID : text
           })
         ]}></TextInput>
-        <Text style={styles.label} >Password</Text>
+        
         <TextInput 
-        placeHolder='password'
-        style={styles.FormInput}
+        placeholder='password'
+        style={styles.formTextInput}
         onChangeText={(text)=>{
           this.setState({
             password : text
@@ -93,7 +97,7 @@ export default class WelcomeScreen extends React.Component {
           modalVisible : false
         })
       }}><Text style={styles.cancelButonText}>Cancel</Text></TouchableOpacity></View>
-      </ScrollView></Modal>
+      </KeyboardAvoidingView></ScrollView></View></Modal>
     )
   }
   userSignUp=()=>{
@@ -101,6 +105,14 @@ export default class WelcomeScreen extends React.Component {
       console.log(response)
       this.setState({
         modalVisible : false
+      })
+      db.collection('user').add({
+        'firstName': this.state.firstName,
+        'lastName': this.state.lastName,
+        'address': this.state.address,
+        'emailID': this.state.emailID,
+        'password': this.state.password,
+        'contactNo': this.state.contactNo
       })
     })
     .catch((error)=>{
@@ -110,7 +122,7 @@ export default class WelcomeScreen extends React.Component {
   userLogin=()=>{
     firebase.auth().signInWithEmailAndPassword(this.state.emailID,this.state.password).then(()=>{
       Alert.alert('logged in successfully')
-      this.props.navigation.navigate('tab')
+      this.props.navigation.navigate('home')
     })
     .catch((error)=>{
       console.log(error['message'])
@@ -119,13 +131,13 @@ export default class WelcomeScreen extends React.Component {
   render(){
     return (
       
-      <View style={styles.container, {marginTop : 200}}>
+      <View style={styles.container}>
         {this.signUpModal()}
         <View>
           <View>
           <View>
           <TextInput 
-          placeHolder = 'username'
+          placeholder = 'username'
           style={styles.TextInput}
           onChangeText={(text)=>{
             this.setState({
@@ -133,7 +145,7 @@ export default class WelcomeScreen extends React.Component {
             })
           }}></TextInput>
           <TextInput 
-          placeHolder = 'password'
+          placeholder = 'password'
           style={styles.TextInput}
           onChangeText={(text)=>{
             this.setState({
