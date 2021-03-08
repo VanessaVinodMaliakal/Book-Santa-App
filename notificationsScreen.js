@@ -1,26 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import AppHeader from '../components/header.js'
 import {styles} from '../StyleSheet.js'
+import firebase from 'firebase'
 
 export default class Notifications extends React.Component{
     constructor(){
         super()
         this.state={
-            notificationData: '',
+            notificationData: [],
             emailID: firebase.auth().currentUser.email,
         }
     }
     getNOtifications=()=>{
         db.collection('notifications').where('targetedUserID','==',this.state.emailID).onSnapshot((docList)=>{
+            var docData = []
             if(docList.docs.length !== 0){
                 docList.docs.map((doc)=>{
-                    var docData = doc.data()
-                    this.setState({
-                        notificationData: docData
-                    })
-                    console.log(this.state.notificationData,'12345')
-               })
+                    docData.push(doc.data())
+                })
+               this.setState({
+                notificationData: docData
+            })
+            console.log(this.state.notificationData,'12345')
             }
         })
     }

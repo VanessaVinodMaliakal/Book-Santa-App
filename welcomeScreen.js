@@ -14,8 +14,8 @@ export default class WelcomeScreen extends React.Component {
       lastName : '',
       contactNo : '',
       address : '',
-      emailID : 'vinodthomas@gmail.com',
-      password : 'abcdefg'
+      emailID : '',
+      password : ''
     }
   }
   signUpModal=()=>{
@@ -133,12 +133,10 @@ export default class WelcomeScreen extends React.Component {
       
       <View style={styles.container}>
         {this.signUpModal()}
-        <View>
-          <View>
-          <View>
+          <View style={{flex:0.45}}>
           <TextInput 
           placeholder = 'username'
-          style={styles.TextInput}
+          style={styles.loginBox}
           onChangeText={(text)=>{
             this.setState({
               emailID : text
@@ -146,15 +144,14 @@ export default class WelcomeScreen extends React.Component {
           }}></TextInput>
           <TextInput 
           placeholder = 'password'
-          style={styles.TextInput}
+          style={styles.loginBox}
           onChangeText={(text)=>{
             this.setState({
               password : text
             })
           }}></TextInput>
         </View>
-        </View>
-        <View>
+        <View style={{flex:0.5, alignItems:"center"}}>
         <TouchableOpacity 
         style={styles.button}
         onPress={()=>{
@@ -167,7 +164,6 @@ export default class WelcomeScreen extends React.Component {
             modalVisible : true
           })
         }}><Text>Sign up</Text></TouchableOpacity>
-        </View>
         </View>
       </View>
    

@@ -4,11 +4,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const styles = StyleSheet.create({ 
 container: {
+    justifyContent:"center",
     flex: 1, 
     backgroundColor: "#6fc0b8" 
 },
 loginBox: { 
-    width: "80%", 
     height: RFValue(50), 
     borderWidth: 1.5, 
     borderColor: "#ffffff", 
@@ -160,11 +160,7 @@ modalContainer:{
     justifyContent:'center', 
     alignItems:'center', 
     backgroundColor:"#ffff", 
-    marginRight:30, 
-    marginLeft : 30, 
-    marginTop:80, 
-    marginBottom:80, 
-}, 
+    }, 
 formTextInput:{ 
     width:"75%", 
     height:35, 
@@ -176,5 +172,3 @@ formTextInput:{
     padding:10 
 },
 });
-
-

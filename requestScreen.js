@@ -36,7 +36,7 @@ export default class Request extends React.Component{
   render(){
     return (
       <View style={styles.container}>
-       <AppHeader title = 'Request books'/>
+       <AppHeader title = 'Request books' navigation={this.props.navigation}/>
        <KeyboardAvoidingView style={styles.keyBoardStyle}>
        <TextInput style={styles.formTextInput} 
        placeholder = 'Enter the book name'
